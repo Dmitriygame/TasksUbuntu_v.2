@@ -7,8 +7,6 @@
 
 #include "functions_sort.h"
 /////////////////////////////////////
-char buffer[1024], t, leftSection[1024],/*rightSection[]*/
-     minNum[1];
 int num_of_chars = 0, sorte;
 bool correctInput = false;
 /////////////////////////////////////
