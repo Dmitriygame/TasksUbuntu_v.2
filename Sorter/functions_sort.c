@@ -1,31 +1,33 @@
 #include "functions_sort.h"
-
-void bubble_sorte() {
-  for(int i = 0; buffer[i] != '\0'; i++)
-  {
-      for(int j=i+1; buffer[j] != '\0'; j++)
-      {
-          if (buffer[i] > buffer[j])
-          {
-              t = buffer[i];
-              buffer[i] = buffer[j];
-              buffer[j] = t;
+void swap(char array[], unsigned int lIndex, unsigned int rIndex) {
+   char tmp = array[lIndex];
+   array[lIndex] =  array[rIndex];
+   array[rIndex] =  tmp;
+}
+void bubble_sorte(char *buffer, unsigned int size) {
+  for(int i = 0; buffer[i] != '\0'; i++) {
+      for(int j=i+1; buffer[j] != '\0'; j++) {
+          if (buffer[i] > buffer[j]) {
+              swap(buffer, i, j);
           }
       }
   }
 }
-void select_sorte() {
+void select_sorte(char *buffer, unsigned int size) {
+  unsigned int jIndex = 0;
+  char min;
   for (int i = 0; buffer[i] !='\0'; i++) {
+    min = buffer[i];
+    jIndex = i;
     for (int j = i + 1; buffer[j] !='\0'; j++) {
-      if (buffer[i] < buffer[j]) {
-        minNum[1] = buffer[i];
+      if (min > buffer[j]) {
+        jIndex = j;
+        min = buffer[j];
       }
     }
-    strcat(leftSection, minNum);
-    buffer[i] = '\0';
+    swap(buffer,i,jIndex);
   }
-  strcpy(buffer, leftSection);
 }
-void insert_sorte() {
+void insert_sorte(char *buffer, unsigned int size) {
 
 }

@@ -3,6 +3,7 @@
 
 char buffer[1024], t, leftSection[1024],/*rightSection[]*/
      minNum[1];
-void bubble_sorte();
-void select_sorte();
-void insert_sorte();
+void swap(char array[], unsigned int lIndex, unsigned int rIndex);
+void bubble_sorte(char *buffer, unsigned int size);
+void select_sorte(char *buffer, unsigned int size);
+void insert_sorte(char *buffer, unsigned int size);

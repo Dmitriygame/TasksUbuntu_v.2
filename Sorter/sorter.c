@@ -35,13 +35,13 @@ int main (int argc, char *argv[])
   fclose(Input);
   switch (sorte) {
     case 1:
-      bubble_sorte ();
+      bubble_sorte (buffer,sizeof(buffer));
       break;
     case 2:
-      select_sorte();
+      select_sorte(buffer,sizeof(buffer));
       break;
     case 3:
-      insert_sorte();
+      insert_sorte(buffer,sizeof(buffer));
       break;
   }
   Output = fopen("Output.txt", "w");
