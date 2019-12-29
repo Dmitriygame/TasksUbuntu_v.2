@@ -10,4 +10,3 @@ sorter.o:
 clean:
 	rm -rf *.o
 	rm sort
-	rm .Makefile.swp

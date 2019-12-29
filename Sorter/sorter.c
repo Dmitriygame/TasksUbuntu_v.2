@@ -7,6 +7,7 @@
 
 #include "functions_sort.h"
 /////////////////////////////////////
+static char buffer[1024];
 int num_of_chars = 0, sorte;
 bool correctInput = false;
 /////////////////////////////////////
@@ -45,7 +46,7 @@ int main (int argc, char *argv[])
       break;
   }
   Output = fopen("Output.txt", "w");
-  fprintf(Output, "%s", buffer);
+  fprintf(Output, "%s\n", buffer);
   fclose(Output);
   return 0;
 }
