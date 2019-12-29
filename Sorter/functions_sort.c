@@ -32,12 +32,11 @@ void select_sorte(char *buffer, unsigned int size) {
 void insert_sorte(char *buffer, unsigned int size) {
     unsigned int cursor = 1;
     for(int i = cursor; buffer[i]  !='\0'; i++) {
-        for(int j=0; j <cursor; j++) {
+        for(int j=0; j < cursor; j++) {
             if (buffer[i] < buffer[j]) {
                 swap(buffer, i, j);
             }
         }
         ++cursor;
-        printf("--------->%s\n", buffer);
     }
 }
