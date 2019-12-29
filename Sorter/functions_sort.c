@@ -28,22 +28,16 @@ void select_sorte(char *buffer, unsigned int size) {
     swap(buffer,i,jIndex);
   }
 }
-// будет "стенка", сортировать до неё
-// strcat '|'
-void insert_sorte(char *buffer, unsigned int size) {
 
-    unsigned int cursor = 2;
-    for(int i = 0; i < cursor; i++) {
-        for(int j=i+1; j < '\0'; j++) {
+void insert_sorte(char *buffer, unsigned int size) {
+    unsigned int cursor = 1;
+    for(int i = cursor; buffer[i]  !='\0'; i++) {
+        for(int j=0; j <cursor; j++) {
             if (buffer[i] < buffer[j]) {
                 swap(buffer, i, j);
             }
-            printf("%s\n", buffer);
         }
-//        if (cursor < 1024) {
-          ++cursor;
-//        }
+        ++cursor;
+        printf("--------->%s\n", buffer);
     }
-
-  printf("\n%s\n", buffer);
 }
