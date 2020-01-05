@@ -1,12 +1,15 @@
 #include "my_class.h"
 Wall::Wall() {
-	m_line = value;
-	field[m_line][0] = '+';
 }
 Wall::Wall(unsigned int value) {
 	m_line = value;
 	field[m_line][0] = '+';
-}	
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			field[i][j] = ' ';
+		}
+	}
+}
 void Wall::draw_wall() {
 	for (int i = 1; i < COLUMNS; i++) {
 		if (field[m_line][i-1] == '-') {
@@ -23,5 +26,14 @@ void Wall::illusion_of_movement() {
 	}
 	else {
 		field[m_line][0] = '+';
+	}
+}
+
+void Wall::printWall() {
+for (int i = 0; i < ROWS; i++) {
+	for (int j = 0; j < COLUMNS; j++) {
+		std::cout << field[i][j];
+	}
+	std::cout << std::endl;
 	}
 }
