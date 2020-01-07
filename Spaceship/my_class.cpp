@@ -5,10 +5,10 @@ Field::Field() {
 			field[i][j] = ' ';
 		}
 	}
-}
+}/*
 char Field::get() {
 	return this -> field[ROWS][COLUMNS];
-}
+}*/
 Wall::Wall() {
 }
 Wall::Wall(unsigned int value) {
@@ -40,10 +40,10 @@ void Wall::illusion_of_movement() {
 }
 Draw::Draw() {
 }
-void Draw::printField(char array[ROWS][COLUMNS]) {
+void Draw::printField() {
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLUMNS; j++) {
-			std::cout << array[i][j];
+			std::cout << field[i][j];
 		}
 		std::cout << std::endl;
 	}

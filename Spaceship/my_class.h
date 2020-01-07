@@ -6,7 +6,7 @@
 class Field {
 	public:
 		Field();
-		char get();
+//		char get();
 //		friend class Draw;
 	protected:
 		char field[ROWS][COLUMNS];
@@ -20,8 +20,8 @@ class Wall : public Field {
 	private:
 		unsigned int m_line;
 };
-class Draw {
+class Draw  : public Field {
 	public:
 		Draw();
-		void printField(char array[ROWS][COLUMNS]);
+		void printField();
 };

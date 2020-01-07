@@ -15,7 +15,7 @@ int main() {
 }
 
 void* Depict(void*) {
-	Field gameField;
+//	Field gameField;
 	Draw painter;
 	Wall wall_up = Wall(0);
 	Wall wall_down = Wall(ROWS-1);
@@ -23,7 +23,7 @@ void* Depict(void*) {
 	while (true) {
 	    wall_up.draw_wall();
 	    wall_down.draw_wall();
-      painter.printField(gameField.get());
+      painter.printField();
 	    wall_up.illusion_of_movement();
 	    wall_down.illusion_of_movement();
 	    sleep(1);
