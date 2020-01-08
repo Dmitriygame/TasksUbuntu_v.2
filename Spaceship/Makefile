@@ -1,11 +1,14 @@
-all: main.o my_class.o
-	g++ my_class.o main.o -o Spaceship  -lpthread
+all: main.o draw.o wall.o
+	g++ draw.o wall.o main.o -o Spaceship  -lpthread
 
 main.o:
 	g++ -c main.cpp -o main.o
 
-my_class:
-	g++ -c my_class.cpp -o my_class.o
+draw.o:
+	g++ -c draw.cpp -o draw.o
+
+wall.o:
+	g++ -c wall.cpp -o wall.o
 
 clean:
 	rm -rf *.o

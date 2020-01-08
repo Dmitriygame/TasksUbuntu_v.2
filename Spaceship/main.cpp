@@ -2,9 +2,12 @@
 #include <cstdlib>
 #include <pthread.h>
 #include <unistd.h>
-#include "my_class.h"
+#include <ctime>
+#include "draw.h"
+#include "wall.h"
 
 using namespace std;
+void delay(float milliseconds);
 void* Depict(void*);
 
 int main() {
@@ -15,18 +18,22 @@ int main() {
 }
 
 void* Depict(void*) {
-//	Field gameField;
 	Draw painter;
 	Wall wall_up = Wall(0);
 	Wall wall_down = Wall(ROWS-1);
 
 	while (true) {
-	    wall_up.draw_wall();
-	    wall_down.draw_wall();
-      painter.printField();
-	    wall_up.illusion_of_movement();
-	    wall_down.illusion_of_movement();
-	    sleep(1);
+	    painter.draw_wall(wall_up.get());
+	    painter.draw_wall(wall_down.get());
+      painter.print_field();
+	    painter.illusion_of_movement_wall(wall_up.get());
+	    painter.illusion_of_movement_wall(wall_down.get());
+	    delay(100);
 	    system ("clear");
 	}
+}
+
+void delay(float milliseconds) {
+  float value = milliseconds*1000;
+  usleep(value);
 }
