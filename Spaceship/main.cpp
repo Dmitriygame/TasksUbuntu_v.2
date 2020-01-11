@@ -19,15 +19,16 @@ int main() {
 
 void* Depict(void*) {
 	Draw painter;
-	Wall wall_up = Wall(0);
-	Wall wall_down = Wall(ROWS-1);
+	Wall wall_up;
+	Wall wall_down;
 
 	while (true) {
-	    painter.draw_wall(wall_up.get());
-	    painter.draw_wall(wall_down.get());
-      painter.print_field();
-	    painter.illusion_of_movement_wall(wall_up.get());
-	    painter.illusion_of_movement_wall(wall_down.get());
+	    wall_up.draw_wall(0);
+	    wall_down.draw_wall(14);
+      painter.print_field(wall_up.getPtrToField(),15,50);
+      painter.print_field(wall_down.getPtrToField(),15,50);
+	    wall_up.illusion_of_movement_wall(0);
+	    wall_down.illusion_of_movement_wall(14);
 	    delay(100);
 	    system ("clear");
 	}
