@@ -1,6 +1,5 @@
 #include "wall.h"
 
-#include<iostream>
 Wall::Wall() {
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLUMNS; j++) {
@@ -8,24 +7,8 @@ Wall::Wall() {
 		}
 	}
 }
-gameField::gameField()
-{
-	field = new char*[ROWS];
-	for (int i=0; i<ROWS; i++)
-	field[i] = new char[COLUMNS];
-}
 
 Wall::Wall(unsigned int value) {
-}
-
-void gameField::setValue(unsigned int x, unsigned y, char value)
-{
-   this->field[x][y] = value;
-}
-
-char gameField::getValue(unsigned int x, unsigned y)
-{
-   return this->field[x][y] ;
 }
 
 void Wall::draw_wall(unsigned int m_line) {
@@ -46,17 +29,4 @@ void  Wall::illusion_of_movement_wall(unsigned int m_line) {
 	else {
 		this->setValue(m_line,0,'+');
 	}
-}
-
-
-char **gameField::getPtrToField()
-{
-   return field;
-}
-
-gameField::~gameField()
-{
-		for (int i=0; i<COLUMNS; i++)
-		delete[] field[i];
-		delete[] field;
 }

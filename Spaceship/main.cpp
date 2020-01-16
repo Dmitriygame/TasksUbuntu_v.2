@@ -3,10 +3,10 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <ctime>
+#include "field.h"
 #include "draw.h"
 #include "wall.h"
 
-using namespace std;
 void delay(float milliseconds);
 void* Depict(void*);
 
