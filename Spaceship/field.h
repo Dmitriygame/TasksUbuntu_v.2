@@ -1,6 +1,6 @@
 #pragma once
-#define COLUMNS 50
-#define ROWS 15
+#define COLUMNS 60
+#define ROWS 20
 class gameField
 {
    //char field[ROWS][COLUMNS];
@@ -11,5 +11,6 @@ class gameField
    char getValue(unsigned int x,unsigned int y);
    char** getPtrToField();
    void clearField();
+   void setField(char **arr);
    ~gameField();
 };

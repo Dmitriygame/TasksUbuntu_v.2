@@ -36,3 +36,11 @@ void gameField::clearField() {
 		}
 	}
 }
+
+void gameField::setField(char **arr) {
+  for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			setValue(i,j,arr[i][j]);
+		}
+	}
+}

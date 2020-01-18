@@ -4,8 +4,9 @@
 #include <unistd.h>
 #include <ctime>
 #include "field.h"
-#include "draw.h"
+#include "shuttle.h"
 #include "wall.h"
+#include "draw.h"
 
 void delay(float milliseconds);
 void* Depict(void*);
@@ -19,16 +20,17 @@ int main() {
 
 void* Depict(void*) {
 	Draw painter;
-	Wall wall_up;
-	Wall wall_down;
+	Wall walls = Wall(0, ROWS-1);
+  Shuttle spaceship;
 
 	while (true) {
-	    wall_up.draw_wall(0);
-	    wall_down.draw_wall(14);
-      painter.print_field(wall_up.getPtrToField(),15,50);
-      painter.print_field(wall_down.getPtrToField(),15,50);
-	    wall_up.illusion_of_movement_wall(0);
-	    wall_down.illusion_of_movement_wall(14);
+
+      walls.illusion_of_movement_wall();
+	    walls.draw_walls();
+      spaceship.setField(walls.getPtrToField());
+      spaceship.draw();
+      painter.print_field(spaceship.getPtrToField(),ROWS,COLUMNS);
+
 	    delay(100);
 	    system ("clear");
 	}

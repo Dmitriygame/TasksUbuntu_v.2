@@ -1,12 +1,14 @@
 #pragma once
-#include "field.h" //!1
-class Wall: public gameField //!1
+#include "field.h"
+class Wall: public gameField
 {
 	public:
 		Wall();
-		Wall(unsigned int value);
-		void draw_wall(unsigned int m_line);
-		void illusion_of_movement_wall(unsigned int m_line);
+		Wall(unsigned int value1, unsigned int value2);
+//		unsigned int get();
+		void draw_walls();
+		void illusion_of_movement_wall();
 	private:
-		unsigned int m_line;
+		unsigned int m_line1;
+		unsigned int m_line2;
 };
