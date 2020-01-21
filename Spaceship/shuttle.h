@@ -4,8 +4,7 @@ class Shuttle: public gameField {
 	public:
 		Shuttle();
 		void draw();
-		void move_up();
-		void move_down();
+		void setXandY(int x, int y);
 	private:
-		int m_center;
+		int m_center_x, m_center_y;
 };

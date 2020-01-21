@@ -1,7 +1,0 @@
-create shuttle.cpp
-create shuttle.h
-change class Wall
-change principle of operation painter
-
-
-

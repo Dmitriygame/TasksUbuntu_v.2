@@ -1,6 +1,5 @@
 #pragma once
-#define COLUMNS 60
-#define ROWS 20
+#include "gameDefines.h"
 class gameField
 {
    //char field[ROWS][COLUMNS];

@@ -17,10 +17,6 @@ Wall::Wall(unsigned int value1, unsigned int value2) {
 	this -> m_line1 = value1;
 	this -> m_line2 = value2;
 }
-/*
-unsigned int Wall::get() {
-	return this -> m_line;
-}*/
 
 void Wall::draw_walls() {
 	for (int i = 1; i < COLUMNS; i++) {

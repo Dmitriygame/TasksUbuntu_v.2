@@ -1,33 +1,19 @@
 #include "shuttle.h"
 #include <cmath>
-Shuttle::Shuttle() {
-  m_center = round(ROWS/2);
-}
+Shuttle::Shuttle() { }
 
 void Shuttle::draw() {
-  setValue(m_center,1,'*');
-  setValue(m_center,2,'*');
-  setValue(m_center,3,'*');
-  setValue(m_center,4,'*');
-  setValue(m_center,5,'*');
-  setValue(m_center+1,1,'*');
-  setValue(m_center+1,2,'*');
-  setValue(m_center+1,3,'*');
-  setValue(m_center+1,4,'*');
-  setValue(m_center+1,5,'*');
-  setValue(m_center-1,1,'*');
-  setValue(m_center-1,2,'*');
-  setValue(m_center+2,1,'*');
-  setValue(m_center+2,2,'*');
+  for (int i = m_center_y; i < m_center_y + 5; i++) {
+    if (i < m_center_y + 2) {
+      setValue(m_center_x-1,i,'*');
+      setValue(m_center_x+2,i,'*');
+    }
+    setValue(m_center_x,i,'*');
+    setValue(m_center_x+1,i,'*');
+  }
 }
 
-void Shuttle::move_up() {
-  if (m_center != 2)
-    --m_center;
+void Shuttle::setXandY(int x, int y) {
+  this -> m_center_x = x;
+  this -> m_center_y = y;
 }
-
-void Shuttle::move_down() {
-  if (m_center != ROWS - 5)
-    ++m_center;
-}
-//ssssssdddddddddddd
