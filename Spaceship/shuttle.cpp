@@ -2,6 +2,8 @@
 #include <cmath>
 Shuttle::Shuttle() { }
 
+Shuttle::~Shuttle() { }
+
 void Shuttle::draw() {
   for (int i = m_center_y; i < m_center_y + 5; i++) {
     if (i < m_center_y + 2) {

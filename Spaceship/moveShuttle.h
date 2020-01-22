@@ -3,6 +3,7 @@
 class MoveShuttle {
 	public:
 		MoveShuttle();
+		~MoveShuttle();
 		void move_up();
 		void move_down();
 		void move_left();

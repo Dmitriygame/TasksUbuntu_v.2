@@ -18,6 +18,8 @@ Wall::Wall(unsigned int value1, unsigned int value2) {
 	this -> m_line2 = value2;
 }
 
+Wall::~Wall() { }
+
 void Wall::draw_walls() {
 	for (int i = 1; i < COLUMNS; i++) {
 		if (this->getValue(m_line1,i-1) == '-') {

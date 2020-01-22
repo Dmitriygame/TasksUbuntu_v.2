@@ -3,6 +3,7 @@
 class Shuttle: public gameField {
 	public:
 		Shuttle();
+		~Shuttle();
 		void draw();
 		void setXandY(int x, int y);
 	private:

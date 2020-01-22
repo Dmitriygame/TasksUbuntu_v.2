@@ -6,6 +6,8 @@ MoveShuttle::MoveShuttle() {
   m_center_y = 1;
 }
 
+MoveShuttle::~MoveShuttle() { }
+
 void MoveShuttle::move_up() {
   if (m_center_x != 2)
     --m_center_x;

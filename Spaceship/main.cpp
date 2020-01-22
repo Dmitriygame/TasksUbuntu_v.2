@@ -1,18 +1,15 @@
 #include <iostream>
 #include <cstdlib>
 #include <pthread.h>
-#include <stdio.h>
-#include <termios.h>
-#include <unistd.h>
 #include <ctime>
+#include "myFunctions.h"
 #include "field.h"
 #include "shuttle.h"
 #include "moveShuttle.h"
+#include "bulletShattle.h"
 #include "wall.h"
 #include "draw.h"
 
-void delay(float milliseconds);
-int getch();
 void* Depict(void*);
 void* Input(void*);
 
@@ -63,22 +60,4 @@ void* Input(void*) {
     }
 //    delay(100);
 	}
-}
-
-void delay(float milliseconds) {
-  float value = milliseconds*1000;
-  usleep(value);
-}
-
-int getch() {
-	struct termios oldt,
-	newt;
-	int ch;
-	tcgetattr( STDIN_FILENO, &oldt );
-	newt = oldt;
-	newt.c_lflag &= ~( ICANON | ECHO );
-	tcsetattr( STDIN_FILENO, TCSANOW, &newt );
-	ch = getchar();
-	tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-	return ch;
 }
