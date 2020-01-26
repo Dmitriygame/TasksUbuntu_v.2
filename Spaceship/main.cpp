@@ -14,6 +14,7 @@ void* Depict(void*);
 void* Input(void*);
 
 MoveShuttle obj_moveShuttle;
+Bullet obj_bullets;
 
 int main() {
    pthread_t thread1;
@@ -26,9 +27,10 @@ int main() {
 }
 
 void* Depict(void*) {
-	Draw painter;
 	Wall walls = Wall(0, ROWS-1);
   Shuttle spaceship;
+  Draw painter;
+
 
 	while (true) {
       walls.illusion_of_movement_wall();
@@ -36,7 +38,14 @@ void* Depict(void*) {
       spaceship.setField(walls.getPtrToField());
       spaceship.setXandY(obj_moveShuttle.getX(), obj_moveShuttle.getY());
       spaceship.draw();
-      painter.print_field(spaceship.getPtrToField(),ROWS,COLUMNS);
+      if (obj_bullets.get() == true) {
+        obj_bullets.setField(spaceship.getPtrToField());
+        obj_bullets.shot();
+        painter.print_field(obj_bullets.getPtrToField(),ROWS,COLUMNS);
+      }
+      else {
+        painter.print_field(spaceship.getPtrToField(),ROWS,COLUMNS);
+      }
 	    delay(100);
 	    system ("clear");
 	}
@@ -58,6 +67,9 @@ void* Input(void*) {
     if (input == 100) {
       obj_moveShuttle.move_right();
     }
-//    delay(100);
+    if (input == 32 && obj_bullets.get() == false) {
+      obj_bullets.set(true);
+      obj_bullets.prep(obj_moveShuttle.getX() - 1, obj_moveShuttle.getY() + 2);
+    }
 	}
 }
