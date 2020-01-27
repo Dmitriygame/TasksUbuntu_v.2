@@ -40,7 +40,9 @@ void* Depict(void*) {
       spaceship.draw();
       if (obj_bullets.get() == true) {
         obj_bullets.setField(spaceship.getPtrToField());
-        obj_bullets.shot();
+        for (int i = 0; i < obj_bullets.get_i(); i++) {
+          obj_bullets.shot();
+        }
         painter.print_field(obj_bullets.getPtrToField(),ROWS,COLUMNS);
       }
       else {
@@ -67,9 +69,10 @@ void* Input(void*) {
     if (input == 100) {
       obj_moveShuttle.move_right();
     }
-    if (input == 32 && obj_bullets.get() == false) {
+    if (input == 32) {
       obj_bullets.set(true);
-      obj_bullets.prep(obj_moveShuttle.getX() - 1, obj_moveShuttle.getY() + 2);
+      obj_bullets.plus();
+      obj_bullets.prep(obj_moveShuttle.getX(), obj_moveShuttle.getY());
     }
 	}
 }
