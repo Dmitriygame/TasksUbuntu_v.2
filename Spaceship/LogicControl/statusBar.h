@@ -1,5 +1,5 @@
 #pragma once
-#include "/../Game/field.h"
+#include "../Game/field.h"
 
 class StatusBar: public gameField {
   public:
