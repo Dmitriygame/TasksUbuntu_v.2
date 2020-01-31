@@ -1,19 +1,18 @@
 #pragma once
 #include "field.h"
-class Bullet: public gameField {
+class Laser: public gameField {
   public:
-    Bullet();
-    ~Bullet();
+    Laser();
+    ~Laser();
     void set(bool value);
     bool get();
-    int get_i();
-    void plus();
-    void minus();
     void prep(int x, int y);
     void shot();
+    int get_power();
+    void plusPow();
+    void minusPow();
   private:
     bool bShot = false;
     int m_x1, m_y1, m_x2, m_y2;
-    int coefficient = 3;
-    int m_i = 0;
+    int m_power = 30, maxPower = 30;
 };

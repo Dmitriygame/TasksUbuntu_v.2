@@ -2,19 +2,20 @@
 #include <cstdlib>
 #include <pthread.h>
 #include <ctime>
-#include "myFunctions.h"
-#include "field.h"
-#include "shuttle.h"
-#include "moveShuttle.h"
-#include "bulletShattle.h"
-#include "wall.h"
-#include "draw.h"
+#include "Game/myFunctions.h"
+#include "Game/field.h"
+#include "Game/shuttle.h"
+#include "Game/moveShuttle.h"
+#include "Game/laserShattle.h"
+#include "Game/wall.h"
+#include "Game/draw.h"
+#include "LogicControl/statusBar.h"
 
 void* Depict(void*);
 void* Input(void*);
 
 MoveShuttle obj_moveShuttle;
-Bullet obj_bullets;
+Laser obj_laser;
 
 int main() {
    pthread_t thread1;
@@ -27,9 +28,10 @@ int main() {
 }
 
 void* Depict(void*) {
-	Wall walls = Wall(0, ROWS-1);
+	Wall walls = Wall(0, ROWS-2);
   Shuttle spaceship;
   Draw painter;
+  StatusBar statusBar;
 
 
 	while (true) {
@@ -38,16 +40,19 @@ void* Depict(void*) {
       spaceship.setField(walls.getPtrToField());
       spaceship.setXandY(obj_moveShuttle.getX(), obj_moveShuttle.getY());
       spaceship.draw();
-      if (obj_bullets.get() == true) {
-        obj_bullets.setField(spaceship.getPtrToField());
-        for (int i = 0; i < obj_bullets.get_i(); i++) {
-          obj_bullets.shot();
-        }
-        painter.print_field(obj_bullets.getPtrToField(),ROWS,COLUMNS);
+       if (obj_laser.get() == true) {
+        obj_laser.setField(spaceship.getPtrToField());
+        obj_laser.prep(obj_moveShuttle.getX(), obj_moveShuttle.getY());
+        obj_laser.shot();
+        obj_laser.minusPow();
+        spaceship.setField(obj_laser.getPtrToField());
+        if (obj_laser.get_power() == 0)
+          obj_laser.set(false);
       }
-      else {
-        painter.print_field(spaceship.getPtrToField(),ROWS,COLUMNS);
-      }
+      else obj_laser.plusPow();
+      statusBar.setField(spaceship.getPtrToField());
+      statusBar.draw(obj_laser.get_power());
+      painter.print_field(statusBar.getPtrToField(),ROWS,COLUMNS);
 	    delay(100);
 	    system ("clear");
 	}
@@ -70,9 +75,10 @@ void* Input(void*) {
       obj_moveShuttle.move_right();
     }
     if (input == 32) {
-      obj_bullets.set(true);
-      obj_bullets.plus();
-      obj_bullets.prep(obj_moveShuttle.getX(), obj_moveShuttle.getY());
-    }
+      if (obj_laser.get() == true) {
+        obj_laser.set(false);
+      }
+      else obj_laser.set(true);
+   }
 	}
 }
