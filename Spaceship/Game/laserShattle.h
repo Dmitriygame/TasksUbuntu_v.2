@@ -13,6 +13,6 @@ class Laser: public gameField {
     void minusPow();
   private:
     bool bShot = false;
-    int m_x1, m_y1, m_x2, m_y2;
+    int m_x1, m_y1;
     int m_power = 30, maxPower = 30;
 };

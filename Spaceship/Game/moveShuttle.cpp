@@ -14,7 +14,7 @@ void MoveShuttle::move_up() {
 }
 
 void MoveShuttle::move_down() {
-  if (m_center_x != ROWS - 4)
+  if (m_center_x != ROWS - 5)
     ++m_center_x;
 }
 

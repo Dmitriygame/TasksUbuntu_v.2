@@ -12,16 +12,13 @@ bool Laser::get() {
 }
 
 void Laser::prep(int x, int y) {
-  this -> m_x1 = x - 1;
-  this -> m_y1 = y + 2;
-  this -> m_x2 = x + 2;
-  this -> m_y2 = y + 2;
+  this -> m_x1 = x;
+  this -> m_y1 = y + 5;
 }
 
 void Laser::shot() {
   for (int i = m_y1; i < COLUMNS; i++) {
     setValue(m_x1, i, '=');
-    setValue(m_x2, i, '=');
   }
 }
 
