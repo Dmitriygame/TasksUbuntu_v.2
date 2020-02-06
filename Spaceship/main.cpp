@@ -11,6 +11,8 @@
 #include "Game/wall.h"
 #include "Game/obstacle.h"
 #include "Game/draw.h"
+#include "Game/gameOver.h"
+#include "Game/score.h"
 #include "LogicControl/statusBar.h"
 
 void* Depict(void*);
@@ -48,7 +50,7 @@ void* Depict(void*) {
       walls.draw_walls();
       spaceship.setField(walls.getPtrToField());
       spaceship.setXandY(obj_moveShuttle.getX(), obj_moveShuttle.getY());
-      spaceship.draw();
+
       if (obj_laser.get() == true) {
         obj_laser.setField(spaceship.getPtrToField());
         obj_laser.prep(obj_moveShuttle.getX(), obj_moveShuttle.getY());
@@ -104,7 +106,10 @@ void* Depict(void*) {
         fense5.move();
       }
 
-      statusBar.setField(fense5.getPtrToField());
+      spaceship.setField(fense5.getPtrToField());
+      spaceship.draw();
+
+      statusBar.setField(spaceship.getPtrToField());
       statusBar.draw_power(obj_laser.get_power());
       statusBar.draw_HP(HP.get());
       painter.print_field(statusBar.getPtrToField(),ROWS,COLUMNS);

@@ -2,8 +2,8 @@ PATH_FOLDER_GAME += $(PWD)/Game/
 PATH_FOLDER_LOGIC += $(PWD)/LogicControl/
 
 
-all: main.o field.o draw.o wall.o shuttle.o health.o moveShuttle.o laserShattle.o obstacle.o myFunctions.o statusBar.o
-	g++ field.o draw.o wall.o shuttle.o health.o moveShuttle.o laserShattle.o obstacle.o myFunctions.o statusBar.o main.o -o Spaceship  -lpthread
+all: main.o field.o draw.o wall.o shuttle.o health.o moveShuttle.o laserShattle.o obstacle.o myFunctions.o statusBar.o gameOver.o
+	g++ field.o draw.o wall.o shuttle.o health.o moveShuttle.o laserShattle.o obstacle.o myFunctions.o statusBar.o gameOver.o main.o -o Spaceship  -lpthread
 
 main.o:
 	g++ -c main.cpp -o main.o
@@ -35,8 +35,14 @@ obstacle.o:
 myFunctions.o:
 	g++ -c $(PATH_FOLDER_GAME)myFunctions.cpp -o myFunctions.o
 
+score.o:
+	g++ -c $(PATH_FOLDER_GAME)score.cpp -o score.o
+
 statusBar.o:
 	g++ -c $(PATH_FOLDER_LOGIC)statusBar.cpp -o statusBar.o
+
+gameOver.o:
+	g++ -c $(PATH_FOLDER_GAME)gameOver.cpp -o gameOver.o
 
 clean:
 	rm -rf *.o
