@@ -19,25 +19,48 @@ void Obstacle::create() {
       this -> centerX = ROWS - 3;
     }
     this -> existence = true;
+    for (int i = 0; i < height; i++) {
+      setValueFense(i, '#');
+    }
   }
 }
 
 void Obstacle::draw() {
-  if (centerX == 1) {
-    for (int i  = centerX; i < height; i++)
-      setValue(i, centerY, '#');
-  }
-  if (centerX == ROWS - 3) {
-    for (int i  = centerX; i > height + 6; i--)
-      setValue(i, centerY, '#');
-  }
+    int j;
+    if (centerX == 1) {
+      j = 0;
+      for (int i  = centerX; i < height; i++) {
+        if (getValue(i, centerY) == '=') {
+          setValueFense(j, ' ');
+        }
+        else {
+          setValue(i, centerY, getValueFense(j));
+        }
+        ++j;
+      }
+    }
+    if (centerX == ROWS - 3) {
+      j = centerX;
+      for (int i = 0; i < height; i++) {
+        if (getValue(j, centerY) == '=') {
+          setValueFense(i, ' ');
+        }
+        else {
+          setValue(j, centerY, getValueFense(i));
+        }
+        --j;
+      }
+    }
 }
 
 void Obstacle::move() {
   if (centerY != 1) {
     --centerY;
   }
-  else existence = false;
+  else  {
+    existence = false;
+    delete [] fense;
+  }
 }
 
 void Obstacle::wait_plus() {
@@ -51,4 +74,11 @@ bool Obstacle::get_existence() {
 
 void Obstacle::set_existence(bool value) {
   this -> existence = value;
+}
+
+void Obstacle::setValueFense(unsigned int x, char value) {
+  this -> fense[x] = value;
+}
+char Obstacle::getValueFense(unsigned int x) {
+  return this -> fense[x];
 }

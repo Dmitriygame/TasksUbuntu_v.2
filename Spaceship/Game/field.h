@@ -2,7 +2,6 @@
 #include "gameDefines.h"
 class gameField
 {
-   //char field[ROWS][COLUMNS];
    char **field;
    public:
    gameField();
