@@ -16,5 +16,5 @@ class Obstacle: public gameField {
   private:
     int centerX, centerY, height, wait = 0, max_wait = 9;
     bool existence = false;
-    char *fense = new char[height];
+    char *fense;
 };

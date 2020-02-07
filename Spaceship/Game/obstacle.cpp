@@ -9,6 +9,7 @@ Obstacle::~Obstacle() {}
 
 void Obstacle::create() {
   if (this -> wait == max_wait) {
+    fense = new char[height];
     int value;
     this -> centerY = COLUMNS - 1;
     this -> height = rand() % 4 + 5;
