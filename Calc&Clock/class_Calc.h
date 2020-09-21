@@ -2,7 +2,8 @@
 
 class Calc {
   public:
-
+    Calc();
+    ~Calc();
 
   private:
 

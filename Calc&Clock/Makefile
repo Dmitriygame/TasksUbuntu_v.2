@@ -1,5 +1,5 @@
 all: main.o calc.o clock.o logbook.o
-	g++ main.o calc.o clock.o logbook.o -o Calc
+	g++ main.o calc.o clock.o logbook.o -o Calc -lpthread
 
 main.o: main.cpp
 	g++ -c main.cpp -o main.o
