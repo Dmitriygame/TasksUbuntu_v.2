@@ -3,55 +3,61 @@
 #include "class_Logbook.h"
 
 #include <queue>
-#include <pthread.h>
+#include <thread>
 #include <unistd.h>
+#include <mutex>
+std::mutex mute;
 
 std::queue<std::string> data;
 
-void* Input(void*);
-void* Compute(void*);
-void* Time(void*);
-void* Output(void*);
+void Input(void);
+void Compute(void);
+void Time(void);
+void Output(void);
 
 int main()
 {
-  pthread_t thread1;
-  pthread_t thread2;
-  pthread_t thread3;
-  pthread_t thread4;
-  pthread_create(&thread1,NULL,Input,NULL);
-  pthread_create(&thread2,NULL,Compute,NULL);
-  pthread_create(&thread3,NULL,Time,NULL);
-  pthread_create(&thread4,NULL,Output,NULL);
-  pthread_join(thread1,NULL);
-  pthread_join(thread2,NULL);
-  pthread_join(thread3,NULL);
-  pthread_join(thread4,NULL);
+  std::thread th1 (Time);
+  std::thread th2 (Output);
+  th1.join();
+  th2.join();
+
   return 0;
 }
 
-void* Input(void*) {
+void Input(void) {
 
 }
 
-void* Compute(void*) {
+void Compute(void) {
 
 }
 
-void* Time(void*) {
+void Time(void) {
+
   Clock timer;
-  if (data.size() == 0 || data.size() == 1) {
-      data.push(timer.output());
-  }
+      while(true)
+      {
+         mute.lock();
+         data.push(timer.output());
+         mute.unlock();
+         usleep(1000000);
+      }
+
 }
 
-void* Output(void*) {
+void Output(void) {
   while (true) {
-    std::cout << data.size() << "\n";
-    std::cout << "Time: " << data.front() << "\n";
-    data.pop();
-    std::cout << data.size() << "\n";
-    std::cout << "Result: " << "\n";
+    if(!data.empty())
+    {
+      mute.lock();
+      std::cout << data.size() << "\n";
+      std::cout << "Time: " << data.front() << "\n";
+      data.pop();
+      std::cout << data.size() << "\n";
+      std::cout << "Result: " << "\n";
+      mute.unlock();
+    }
     usleep(1000000);
     system("clear");
   }
