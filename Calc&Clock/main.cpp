@@ -27,7 +27,6 @@ int main()
   pthread_join(thread2,NULL);
   pthread_join(thread3,NULL);
   pthread_join(thread4,NULL);
-  
   return 0;
 }
 
