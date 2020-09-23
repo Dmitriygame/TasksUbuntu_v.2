@@ -7,10 +7,13 @@
 #include <unistd.h>
 #include <mutex>
 #include <cstdio>
+#include <stdio.h>
+#include <termios.h>
 
 std::mutex mute;
 std::queue<std::string> data;
 
+int getch();
 void Input(void);
 void Compute(void);
 void Time(void);
@@ -31,10 +34,11 @@ int main()
 }
 
 void Input(void) {
-  std::string inp;
   while(true) {
     mute.lock();
-    data.push("inp");
+    std::string i = "i ";
+    i[1] = char(99);
+    data.push(i);
     mute.unlock();
     usleep(1000000);
   }
@@ -48,7 +52,7 @@ void Time(void) {
   Clock timer;
   while(true) {
      mute.lock();
-     data.push(timer.output());
+     data.push("t" + timer.output());
      mute.unlock();
      usleep(1000000);
   }
@@ -58,14 +62,31 @@ void Output(void) {
   while (true) {
     if(!data.empty()) {
       mute.lock();
-      std::cout << "Time: " << data.front() << "\n";
-      data.pop();
-      std::cout << "Result: " << "\n";
-      std::cout << "Input: " << data.front() << "\n";
+      std::string m = data.front();
+      if (m[0] == 't') {
+        m[0] = ' ';
+        std::cout << "Time:" << m << "\n";
+        data.pop();
+      }
+      std::cout << "Result:" << "\n";
+      std::cout << "Input:" << data.front() << "\n";
       data.pop();
       mute.unlock();
     }
     usleep(1000000);
     system("clear");
   }
+}
+
+int getch() {
+	struct termios oldt,
+	newt;
+	int ch;
+	tcgetattr( STDIN_FILENO, &oldt );
+	newt = oldt;
+	newt.c_lflag &= ~( ICANON | ECHO );
+	tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+	ch = getchar();
+	tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+	return ch;
 }
