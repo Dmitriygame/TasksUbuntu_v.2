@@ -9,8 +9,13 @@
 #include <cstdio>
 #include <stdio.h>
 #include <termios.h>
+#include <condition_variable>
 
 std::mutex mute;
+std::mutex mtx;
+std::condition_variable cv;
+bool var = false;
+bool ret() {return var;}
 std::queue<std::string> data;
 
 int getch();
@@ -35,12 +40,7 @@ int main()
 
 void Input(void) {
   while(true) {
-    mute.lock();
-    std::string i = "i ";
-    i[1] = char(99);
-    data.push(i);
-    mute.unlock();
-    usleep(1000000);
+
   }
 }
 
@@ -52,29 +52,28 @@ void Time(void) {
   Clock timer;
   while(true) {
      mute.lock();
-     data.push("t" + timer.output());
+     data.push(timer.output());
      mute.unlock();
+     var = true;
+     cv.notify_one();
      usleep(1000000);
   }
 }
 
 void Output(void) {
   while (true) {
+    std::unique_lock <std::mutex> ulm (mtx);
+    cv.wait(ulm, ret);
     if(!data.empty()) {
-      mute.lock();
-      std::string m = data.front();
-      if (m[0] == 't') {
-        m[0] = ' ';
-        std::cout << "Time:" << m << "\n";
-        data.pop();
-      }
-      std::cout << "Result:" << "\n";
-      std::cout << "Input:" << data.front() << "\n";
+      std::cout << "Time: " << data.front() << "\n";
       data.pop();
+      std::cout << "Result:" << "\n";
+      std::cout << "Input:" << "\n";
       mute.unlock();
+      usleep(1000000);
+      system("clear");
+      var = false;
     }
-    usleep(1000000);
-    system("clear");
   }
 }
 
