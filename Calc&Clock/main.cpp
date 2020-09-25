@@ -11,11 +11,8 @@
 #include <termios.h>
 #include <condition_variable>
 
-std::mutex mute;
 std::mutex mtx;
 std::condition_variable cv;
-bool var = false;
-bool ret() {return var;}
 std::queue<std::string> data;
 
 int getch();
@@ -51,41 +48,24 @@ void Compute(void) {
 void Time(void) {
   Clock timer;
   while(true) {
-     mute.lock();
+     std::unique_lock <std::mutex> ulm (mtx);
      data.push(timer.output());
-     mute.unlock();
-     var = true;
+     ulm.unlock();
      cv.notify_one();
-     usleep(1000000);
+     std::this_thread::sleep_for(std::chrono::milliseconds(1000));  
   }
 }
 
 void Output(void) {
   while (true) {
     std::unique_lock <std::mutex> ulm (mtx);
-    cv.wait(ulm, ret);
-    if(!data.empty()) {
-      std::cout << "Time: " << data.front() << "\n";
-      data.pop();
-      std::cout << "Result:" << "\n";
-      std::cout << "Input:" << "\n";
-      mute.unlock();
-      usleep(1000000);
-      system("clear");
-      var = false;
-    }
+    cv.wait(ulm,[](){return !data.empty();});
+    system("clear");
+    std::cout << "Time: " << data.front() << "\n";
+    data.pop();
+    std::cout << "Result:" << "\n";
+    std::cout << "Input:" << "\n";
+    ulm.unlock();
   }
 }
 
-int getch() {
-	struct termios oldt,
-	newt;
-	int ch;
-	tcgetattr( STDIN_FILENO, &oldt );
-	newt = oldt;
-	newt.c_lflag &= ~( ICANON | ECHO );
-	tcsetattr( STDIN_FILENO, TCSANOW, &newt );
-	ch = getchar();
-	tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-	return ch;
-}
