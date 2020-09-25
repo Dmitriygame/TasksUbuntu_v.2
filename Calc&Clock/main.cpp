@@ -46,9 +46,10 @@ void Compute(void) {
 }
 
 void Time(void) {
+  Clock timer;
   while(true) {
      std::unique_lock <std::mutex> ulm (mtx);
-     std::cout << "Time"<< "\n";
+     data.push(timer.output());
      ulm.unlock();
      cv.notify_one();
      std::this_thread::sleep_for(std::chrono::milliseconds(1000));  
@@ -59,7 +60,11 @@ void Output(void) {
   while (true) {
     std::unique_lock <std::mutex> ulm (mtx);
     cv.wait(ulm,[](){return !data.empty();});
-    std::cout << "Output:" << "\n";
+    system("clear");
+    std::cout << "Time: " << data.front() << "\n";
+    data.pop();
+    std::cout << "Result:" << "\n";
+    std::cout << "Input:" << "\n";
     ulm.unlock();
   }
 }
